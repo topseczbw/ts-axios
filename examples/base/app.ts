@@ -119,5 +119,6 @@ axios({
     b: 4
   }
 }).then((res) => {
+  console.log(2222)
   console.log(res)
 })

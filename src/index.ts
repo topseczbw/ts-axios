@@ -8,12 +8,9 @@ function axios(config: AxiosRequestConfig): AxiosPromise {
   processConfig(config)
   // 真正发送请求
   return xhr(config).then(res => {
+    // 相当于拦截，then函数中返回的也是个promise
     return transformResponseData(res)
   })
-}
-
-function transformRequestData(config: AxiosRequestConfig) {
-  return transformRequest(config.data)
 }
 
 /**
@@ -37,6 +34,10 @@ function transformHeaders(config: AxiosRequestConfig): any {
   // 保证headers一定存在，就算使用时没有赋值header
   const { headers = {}, data } = config
   return processHeaders(headers, data)
+}
+
+function transformRequestData(config: AxiosRequestConfig) {
+  return transformRequest(config.data)
 }
 
 function transformResponseData(res: AxiosResponse) {
